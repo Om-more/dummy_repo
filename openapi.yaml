@@ -1,0 +1,37 @@
+openapi: 3.1.0
+info:
+  title: Toy Banking Payment Service
+  version: 1.0.0
+  description: Initiates payments after fee calculation and fraud screening.
+servers:
+  - url: http://localhost:8001
+paths:
+  /health:
+    get:
+      summary: Service health check
+      responses:
+        '200':
+          description: Service is ready
+  /payments:
+    post:
+      summary: Initiate a payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [account_id, payee_id, amount]
+              properties:
+                account_id:
+                  type: string
+                payee_id:
+                  type: string
+                amount:
+                  type: number
+                  exclusiveMinimum: 0
+      responses:
+        '201':
+          description: Payment accepted
+        '403':
+          description: Payment rejected by fraud screening
