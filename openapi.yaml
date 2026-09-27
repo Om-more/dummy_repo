@@ -35,3 +35,29 @@ paths:
           description: Payment accepted
         '403':
           description: Payment rejected by fraud screening
+  /payments/{payment_id}:
+    get:
+      summary: Fetch a payment
+      parameters:
+        - in: path
+          name: payment_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment record
+        '404':
+          description: Payment not found
+  /accounts/{account_id}/payments:
+    get:
+      summary: List payments for an account
+      parameters:
+        - in: path
+          name: account_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment records
